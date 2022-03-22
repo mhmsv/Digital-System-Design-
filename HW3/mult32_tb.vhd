@@ -1,0 +1,25 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+
+ENTITY mult32_tb IS END mult32_tb ;
+ARCHITECTURE test OF mult32_tb IS
+    COMPONENT ML32 IS
+        PORT( NUM1,NUM2 : IN STD_LOGIC_VECTOR(31 downto 0);
+		          RESULT : OUT STD_LOGIC_VECTOR(63 DOWNTO 0));
+    END COMPONENT;
+    SIGNAL a_t , b_t  : std_logic_vector(31 DOWNTO 0 );
+    SIGNAL p_t        : std_logic_vector(63 DOWNTO 0) ;
+    
+BEGIN
+    MUL1 : multiplier32 PORT MAP( a_t , b_t , p_t );
+    
+    a_t <=  "00000000000000000000000000000000",
+            "00000000000000000000000000001111" AFTER 20 ns,
+            "00000000000000000000000011111111" AFTER 40 ns,
+            "00000000000000001111000000001111" AFTER 60 ns;
+          
+    b_t <=  "00000000000000000000000000000000",
+            "00000000000000000000000011111100" AFTER 30 ns,
+            "00000000000001111001001111000011" AFTER 50 ns;
+  
+END test;
